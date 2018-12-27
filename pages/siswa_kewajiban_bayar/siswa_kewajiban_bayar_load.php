@@ -20,7 +20,7 @@
                               <?php 
                   //kd_siswa_kewajiban_bayar  fk_kd_siswa_kelas   fk_kd_kelas_jenjang_bayar   status_bayar 
                                     $j=1;
-                                    $sqlcatat = "SELECT A.*,B.*, B.nama AS namatagihan, C.nama AS jurusan FROM t_siswa_kewajiban_bayar A
+                                    $sqlcatat = "SELECT A.*,B.*, A.total_bayar AS tagih, C.nama AS jurusan, F.nama AS kelas, G.nama AS siswa,B.total_bayar AS tagihan FROM t_siswa_kewajiban_bayar A
                                     LEFT JOIN t_kelas_jenjang_bayar B ON A.fk_kd_kelas_jenjang_bayar=B.kd_kelas_jenjang_bayar
                                     LEFT JOIN t_jurusan C ON B.fk_kd_jurusan=C.kd_jurusan
                                     LEFT JOIN t_tahun_akademik D ON B.fk_kd_tahun_akademik=D.kd_tahun_akademik
@@ -33,24 +33,21 @@
                                 ?>
                         <tr class="tr1">
                           <td><?php echo $j++;?></td>
-                          <td><?php echo $catat['kd_siswa_kewajiban_bayar'];?></td>
                           <td><?php echo $catat['siswa'];?></td>
                           <td><?php echo $catat['kelas'];?></td>
-                          <td><?php echo $catat['tahun'];?></td>
+                          <td><?php echo $catat['fk_kd_tahun_akademik'];?></td>
                           <td><?php echo $catat['jurusan'];?></td>  
                           <td><?php echo $catat['tagihan'];?></td>    
-                          <td><?php echo $catat['total_bayar'];?></td>
+                          <td><?php echo $catat['tagih'];?></td>
                           <td><?php echo $catat['status_bayar'];?></td>
                           </td>
                           <td > <!-- kd_siswa_kewajiban_bayar   fk_kd_tahun_akademik  fk_kd_jurusan   fk_kd_kelas   fk_kd_ruang   fk_kd_siswa -->
                                         <button type="button" class="btn btn btn-default btn-circle" id="<?php echo $catat['kd_siswa_kewajiban_bayar']; ?>"  onclick="ubahsiswa_kewajiban_bayar(
                                          '<?php echo $catat['kd_siswa_kewajiban_bayar'];?>',
-                                         '<?php echo $catat['jenjang'];?>',
-                                         '<?php echo $catat['fk_kd_tahun_akademik'];?>',
-                                         '<?php echo $catat['fk_kd_jurusan'];?>',
-                                         '<?php echo $catat['fk_kd_kelas'];?>',
-                                         '<?php echo $catat['total_bayar'];?>',
-                                         '<?php echo $catat['status_bayar'];?>'
+                                         '<?php echo $catat['siswa'];?>',
+                                         '<?php echo $catat['kelas'];?>',
+                                         '<?php echo $catat['jurusan'];?>',
+                                         '<?php echo $catat['fk_kd_siswa_kelas'];?>'
                                         );"><span>Ubah</span></button>
                                          <button type="button" class="btn btn btn-default btn-circle" id="<?php echo $catat['kd_siswa_kewajiban_bayar']; ?>" onclick="open_del(iddelsatuan='<?php echo $catat['kd_siswa_kewajiban_bayar']; ?>');"><span>Hapus</span></button>
 

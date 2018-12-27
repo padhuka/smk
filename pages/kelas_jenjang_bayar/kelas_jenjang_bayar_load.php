@@ -7,7 +7,7 @@
                         <tr>
                           <th>No</th>
                           <th>Kode</th>
-                          <th>Nama</th>
+                          <th>Nama Tagihan</th>
                           <th>Kelas</th>
                           <th>Tahun Akademik</th>   
                           <th>Jurusan</th>   
@@ -19,7 +19,8 @@
                         <tbody>
                               <?php 
                                     $j=1;
-                                    $sqlcatat = "SELECT A.*,A.nama AS jenjang,B.nama AS kelas, D.kd_tahun_akademik AS tahun, E.nama AS jurusan FROM t_kelas_jenjang_bayar A
+                                    $sqlcatat = "SELECT A.*,X.nama AS nmtagih,B.nama AS kelas, D.kd_tahun_akademik AS tahun, E.nama AS jurusan FROM t_kelas_jenjang_bayar A
+                                    LEFT JOIN t_jenis_pembayaran X ON A.fk_kd_jenis_pembayaran=X.kd_jenis_pembayaran
                                     LEFT JOIN t_kelas B ON A.fk_kd_kelas=B.kd_kelas
                                     LEFT JOIN t_tahun_akademik D ON A.fk_kd_tahun_akademik=D.kd_tahun_akademik                                    
                                     LEFT JOIN t_jurusan E ON A.fk_kd_jurusan=E.kd_jurusan
@@ -30,7 +31,7 @@
                         <tr class="tr1">
                           <td><?php echo $j++;?></td>
                           <td><?php echo $catat['kd_kelas_jenjang_bayar'];?></td>
-                          <td><?php echo $catat['jenjang'];?></td>
+                          <td><?php echo $catat['nmtagih'];?></td>
                           <td><?php echo $catat['kelas'];?></td>
                           <td><?php echo $catat['tahun'];?></td>
                           <td><?php echo $catat['jurusan'];?></td>                   
@@ -40,7 +41,7 @@
                           <td > <!-- kd_kelas_jenjang_bayar   fk_kd_tahun_akademik  fk_kd_jurusan   fk_kd_kelas   fk_kd_ruang   fk_kd_siswa -->
                                         <button type="button" class="btn btn btn-default btn-circle" id="<?php echo $catat['kd_kelas_jenjang_bayar']; ?>"  onclick="ubahkelas_jenjang_bayar(
                                          '<?php echo $catat['kd_kelas_jenjang_bayar'];?>',
-                                         '<?php echo $catat['jenjang'];?>',
+                                         '<?php echo $catat['fk_kd_jenis_pembayaran'];?>',
                                          '<?php echo $catat['fk_kd_tahun_akademik'];?>',
                                          '<?php echo $catat['fk_kd_jurusan'];?>',
                                          '<?php echo $catat['fk_kd_kelas'];?>',

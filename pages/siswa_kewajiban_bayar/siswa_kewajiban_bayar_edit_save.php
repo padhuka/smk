@@ -1,26 +1,27 @@
 <?php
         include_once '../../lib/config.php';
         include_once '../../lib/fungsi.php';
-		$kode = trim($_POST['kode']);   
-        $kodehid = trim($_POST['kodehid']);   
-        $nama = trim($_POST['nama']);
-        $kelas = trim($_POST['kelas']);
-        $jurusan = trim($_POST['jurusan']); 
-        $tahun = trim($_POST['tahun']);        
-        $tahunhid = trim($_POST['tahunhid']);        
-        $jumlah = trim($_POST['jumlah']);
-        $wajib = trim($_POST['wajib']);
+		$kode = trim($_GET['kdkelas']);   
 
-        $sqlcek = "SELECT * FROM t_siswa_kewajiban_bayar WHERE (kd_siswa_kewajiban_bayar='$kode' AND kd_siswa_kewajiban_bayar<>'$kodehid') OR (nama='$nama' AND fk_kd_tahun_akademik<>'$tahunhid')";
+        $sqlcek = "SELECT * FROM t_siswa_kewajiban_bayar WHERE fk_kd_siswa_kelas='$kode'";
         //echo $sqlcek;
         $qrycek = mysql_query($sqlcek);
-        $row = mysql_fetch_array($qrycek);
-        if ($row){
+        //$row = mysql_fetch_array($qrycek);
+        /*if ($row){
             echo 'y';
-        }else{
-                $sqltbemp = "UPDATE t_siswa_kewajiban_bayar SET kd_siswa_kewajiban_bayar='$kode',nama='$nama',fk_kd_kelas='$kelas' ,fk_kd_jurusan='$jurusan',fk_kd_tahun_akademik='$tahun',total_bayar='$jumlah', wajib='$wajib'  WHERE kd_siswa_kewajiban_bayar='$kodehid'";
-                echo $sqltbemp;
-                mysql_query($sqltbemp);
-           // echo '
-     }
+        }else{*/
+                //$ttlbayar='';
+               while($catat = mysql_fetch_array( $qrycek )){
+                   $pilihan=$catat['kd_siswa_kewajiban_bayar'];
+                   //$pilihan=$catat['kd_r'];
+                   //$wajib = trim($_POST['wajib']);
+                   $ttlbayar=trim($_POST[$pilihan]);
+                   echo $ttlbayar;
+
+                   $sqltbemp = "UPDATE t_siswa_kewajiban_bayar SET total_bayar='$ttlbayar' WHERE kd_siswa_kewajiban_bayar='$pilihan'";
+                    echo $sqltbemp;
+                    mysql_query($sqltbemp);
+                }
+               // echo '
+     //}
 ?>

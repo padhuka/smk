@@ -12,14 +12,16 @@
         $wajib = trim($_POST['wajib']);
         //message_back($id_satuan);
          #cek idsurat
-        $sqlcek = "SELECT * FROM t_kelas_jenjang_bayar WHERE kd_kelas_jenjang_bayar='$kode' OR (nama='$nama' AND fk_kd_tahun_akademik='$tahun')";
+        $sqlcek = "SELECT * FROM t_kelas_jenjang_bayar WHERE kd_kelas_jenjang_bayar='$kode' OR (fk_kd_jenis_pembayaran='$nama' AND fk_kd_tahun_akademik='$tahun')";
         $qrycek = mysql_query($sqlcek);
         $row = mysql_fetch_array($qrycek);
+
+        echo $sqlcek;
 
         if ($row){
             echo 'y';
         }else{
-            $sqltbemp = "INSERT INTO t_kelas_jenjang_bayar (kd_kelas_jenjang_bayar,nama,fk_kd_kelas,fk_kd_jurusan,fk_kd_tahun_akademik,total_bayar,wajib) VALUES ('$kode','$nama','$kelas','$jurusan','$tahun','$jumlah','$wajib')";
+            $sqltbemp = "INSERT INTO t_kelas_jenjang_bayar (kd_kelas_jenjang_bayar,fk_kd_jenis_pembayaran,fk_kd_kelas,fk_kd_jurusan,fk_kd_tahun_akademik,total_bayar,wajib) VALUES ('$kode','$nama','$kelas','$jurusan','$tahun','$jumlah','$wajib')";
             mysql_query($sqltbemp);
             echo $sqltbemp;
         }

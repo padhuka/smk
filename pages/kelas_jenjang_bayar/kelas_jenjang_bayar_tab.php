@@ -81,8 +81,17 @@
                   <label for="inputEmail3" class="col-sm-4 control-label">Nama</label>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" id="nama" name="nama" >
-                    <input type="hidden" class="form-control" id="namahid" name="namahid" >
+                    <select id="nama" name="nama" class="form-control">
+                        <?php
+                        $sqldidik = "SELECT * FROM t_jenis_pembayaran ORDER BY kd_jenis_pembayaran ASC";
+                                    $resdidik = mysql_query( $sqldidik );
+                                    while($hdidik = mysql_fetch_array( $resdidik )){
+                        ?>
+                          <option value="<?php echo $hdidik['kd_jenis_pembayaran'];?>"><?php echo $hdidik['nama'];?></option>
+                        <?php }?>
+                      </select>
+                    <!--<input type="text" class="form-control" id="nama" name="nama" >
+                    <input type="hidden" class="form-control" id="namahid" name="namahid" >-->
                   </div>
                 </div>
                 <div class="form-group">
@@ -209,6 +218,7 @@
                           }else{
                             var lks='kelas_jenjang_bayar_edit_save.php';
                           }
+
                                       $.ajax({
                                                   type: 'POST',
                                                   url: 'pages/kelas_jenjang_bayar/'+lks,
