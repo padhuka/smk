@@ -16,10 +16,10 @@
                    //$pilihan=$catat['kd_r'];
                    //$wajib = trim($_POST['wajib']);
                    $ttlbayar=trim($_POST[$pilihan]);
-                   echo $ttlbayar;
+                   //echo $ttlbayar;
 
                    $sqltbemp = "UPDATE t_siswa_kewajiban_bayar SET total_bayar='$ttlbayar' WHERE kd_siswa_kewajiban_bayar='$pilihan'";
-                    echo $sqltbemp;
+                    //echo $sqltbemp;
                     mysql_query($sqltbemp);
                 }
                // echo '

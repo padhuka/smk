@@ -305,7 +305,7 @@
                                                   success: function(data){
                                                         //alert('lolos');
                                                         var hsl=data.trim();
-                                                        alert(hsl);
+                                                        //alert(hsl);
                                                         //return false;
                                                         if (hsl=='y'){
                                                       alert('Data Sudah ada');
