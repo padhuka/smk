@@ -15,7 +15,7 @@
     <nav class="navbar navbar-static-top"  style="margin-left: -0px;">
       <div class="navbar-custom-menu" style="float: left;">
         <img src="dist/img/user-160x160.jpg" class="user-image" alt="User Image" height="60" width="60" style="padding: 5px 5px 5px 5px;">
-              <span style="font-size: 20px; color: #FFFFFF;">Sistem Informasi Manajemen - SMKS Muhammadiyah 9 Gambiran</span>
+              <span style="font-size: 20px; color: #FFFFFF;">Sistem Informasi Pembayaran Sekolah - SMKS Muhammadiyah 9 Gambiran</span>
         
       </div>  
     </nav>
@@ -38,9 +38,10 @@
          <li><a href='?p=siswa_kelas'>Siswa Kelas</a></li>
          <li><a href='?p=jenjang_bayar'>Jenjang Pembayaran</a></li>      
          <li><a href='?p=wajib_bayar'>Tagihan Siswa</a></li>   
+         <li><a href='?p=siswa_bayar'>Pembayaran Siswa</a></li>   
       </ul>
    </li>
-   
+   <!--
    <li class='has-sub'><a href='#'>Laporan</a>
       <ul>
          <li><a href='#'>Dokter, Bidan, Fisio</a></li>
@@ -48,6 +49,7 @@
          <li><a href='#'>Keuangan</a></li>
       </ul>
    </li>
+ -->
    <li class='has-sub'><a href='logout.php'>Logout</a>
 </ul>
 </div>
