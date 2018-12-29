@@ -44,7 +44,14 @@
     <div class="form-group">
                   <label for="inputEmail3" class="col-sm-4 control-label">Kekurangan</label>
                   <div class="col-sm-6">
-                      <input type="text" class="form-control" name="kurang" id="kurang">                   
+                      <input type="text" class="form-control" name="kurang" id="kurang" readonly="yes">                   
+                  </div>
+                  
+    </div>
+    <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-4 control-label">Pembayaran</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control" name="bayar" id="bayar" value="0">                   
                   </div>
                   
     </div>

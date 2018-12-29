@@ -256,7 +256,7 @@
                   $('#tahunhid').val(c);
                   $('#jurusan').val(d);
                   $('#kelas').val(c);
-                  $('#sts').val('1');
+                  //$('#sts').val('1');
                   $('#detail').show();
 
                   //fk_kd_siswa_kelas fk_kd_kelas_jenjang_bayar total_bayar status_bayar
@@ -286,15 +286,25 @@
             $(document).ready(function (){
                  $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');
 
-                    $("#formsiswa_bayar").on('submit', function(e){
+                    $("#formsiswa_bayar").on('submit', function(e){                         
                           e.preventDefault();
+                           var bayare = $('#bayar').val();
+                          var pilx = document.getElementById("listtagih");
+                          //var pils = pil.options[pil.selectedIndex].text;
+                          var pilsx = pilx.options[pilx.selectedIndex].value;
+
+                           if (pilsx=='' || bayare=='0'){
+                              return false;
+                           }
+                       //alert(bayare);
                           var sts = $('#sts').val();
                           if (sts=='') {
-                            var lks='siswa_bayar_add_save.php';
+                            var lks='siswa_bayar_add_save.php?kode='+pilsx;
                           }else{
                             kdne=$('#kode').val();
                             var lks='siswa_bayar_edit_save.php?kdkelas='+kdne;
                           }
+                          
                                       $.ajax({
                                                   type: 'POST',
                                                   url: 'pages/siswa_bayar/'+lks,
@@ -306,17 +316,11 @@
                                                         //alert('lolos');
                                                         var hsl=data.trim();
                                                         //alert(hsl);
-                                                        //return false;
-                                                        if (hsl=='y'){
-                                                      alert('Data Sudah ada');
-                                                        return false;
-                                                      exit();
-                                                    }else{
+                                                        //return false;                
                                                       
                                                       refresh();
                                                             alert('Data Berhasil Disimpan');
-                                                            $("#tablesiswa_kewajiban_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');
-                                                  }
+                                                            $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');
                                                       }
                                                 });
                       });

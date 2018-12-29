@@ -1,26 +1,15 @@
 <?php
         include_once '../../lib/config.php';
         include_once '../../lib/fungsi.php';
+        $kdini = date('YmdHis');
          //$ip = ; // Ambil IP Address dari User
         ////
-        $kode = trim($_POST['kode']);   
-        $nama = trim($_POST['nama']);
-        $kelas = trim($_POST['kelas']);
-        $jurusan = trim($_POST['jurusan']); 
-        $tahun = trim($_POST['tahun']);        
-        $jumlah = trim($_POST['jumlah']);
-        $wajib = trim($_POST['wajib']);
+        $kode = trim($_GET['kode']);   
+        $bayar = trim($_POST['bayar']);
         //message_back($id_satuan);
          #cek idsurat
-        $sqlcek = "SELECT * FROM t_siswa_kewajiban_bayar WHERE kd_siswa_kewajiban_bayar='$kode' OR (nama='$nama' AND fk_kd_tahun_akademik='$tahun')";
-        $qrycek = mysql_query($sqlcek);
-        $row = mysql_fetch_array($qrycek);
-
-        if ($row){
-            echo 'y';
-        }else{
-            $sqltbemp = "INSERT INTO t_siswa_kewajiban_bayar (kd_siswa_kewajiban_bayar,nama,fk_kd_kelas,fk_kd_jurusan,fk_kd_tahun_akademik,total_bayar,wajib) VALUES ('$kode','$nama','$kelas','$jurusan','$tahun','$jumlah','$wajib')";
+            //kd_siswa_bayar  fk_kd_siswa_kewajiban_bayar   tgl   jml_bayar
+            $sqltbemp = "INSERT INTO t_siswa_bayar (kd_siswa_bayar,fk_kd_siswa_kewajiban_bayar,jml_bayar) VALUES ('$kdini','$kode','$bayar')";
             mysql_query($sqltbemp);
-            echo $sqltbemp;
-        }
+            //echo $sqltbemp;
 ?>
