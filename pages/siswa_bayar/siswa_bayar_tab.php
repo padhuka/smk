@@ -1,17 +1,38 @@
-<?php
+                      <?php
                             include_once 'lib/config.php';
                       ?>
+  <script>
+    
+            function buattagihan(){
+                              var e = document.getElementById("tahun");
+                              var x = e.options[e.selectedIndex].value;
+                              
+                                $.ajax({
+                                    url: "pages/siswa_bayar/buattagihan_save.php?tahun="+x,
+                                    type: "GET",
+                                    success: function (data){
+                                        var hsl=data.trim();
+                                      //alert(hsl);                                     
+                                        var hasil=hsl.split("-");
+                                        //alert('Jumlah Siswa :'+hasil[1]);
+                                        alert(hasil);
+                                        $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php')
+
+                                    }
+                                });
+            };
+  </script>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper"  style="margin-left: -0px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data siswa_bayar
+        Data Tagihan
         <!--<small>Control panel</small>-->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Data siswa_bayar</li>
+        <li class="active">Data Tagihan</li>
       </ol>
     </section>
 
@@ -22,27 +43,71 @@
         <div class="col-md-8">
           <!-- general form elements -->
           <div class="box box-primary">
-            <!--<div class="box-header with-border">
-              <h3 class="box-title">Quick Example</h3>
-            </div>
-             /.box-header -->
-            <!-- form start 
-            <form role="form">-->
+            
               <div class="box-body">
                 <div id="tablesiswa_bayar">
                 </div>
-              </div>
-              <!-- /.box-body 
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>-->
-
+              </div>             
           </div>
           <!-- /.box -->
         </div>
 
         <div class="col-md-4">
+          <!-- Horizontal Form -->
+                <h4>
+                  <u>Buat Tagihan</u>&nbsp;(<span onclick="tampiltagihan()" style="color: blue; cursor:pointer;" id="op">Open</span>)
+                  <!--<small>Control panel</small>-->
+                </h4>
+            
+        </div>
+
+        <div class="col-md-4" id="formtagihan">
+          <!-- Horizontal Form -->
+          <div class="box box-info">
+            <!-- <div class="box-header with-border">
+              <h3 class="box-title">Horizontal Form</h3>
+            </div>
+            /.box-header -->
+            <!-- form start -->
+            
+
+            <form class="form-horizontal" enctype="multipart/form-data" novalidate id="formsiswa_tagihan_bayar">
+              <div class="box-body">
+
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-4 control-label">Tahun Akademik</label>
+
+                      <div class="col-sm-6">
+                        
+
+                        <select id="tahun" name="tahun" class="form-control">
+                            <?php
+                            $sqldidik = "SELECT * FROM t_tahun_akademik ORDER BY tahun_pertama ASC";
+                                        $resdidik = mysql_query( $sqldidik );
+                                        while($hdidik = mysql_fetch_array( $resdidik )){
+                            ?>
+                              <option value="<?php echo $hdidik['kd_tahun_akademik'];?>"><?php echo $hdidik['kd_tahun_akademik'];?></option>
+                            <?php }?>
+                          </select>
+                          <input type="hidden" class="form-control" id="tahunhid" name="tahunhid" readonly="yes">
+                      </div>
+                    </div>
+                
+               
+              </div>
+
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="button" class="btn btn-primary" onclick="buattagihan();" id="buattagih">Buat Tagihan</button>             
+              </div>
+              <!-- /.box-footer -->
+            </form>
+           
+      </div>
+
+    </div>
+
+    <div class="col-md-4" style="float: right;">
           <!-- Horizontal Form -->
           <div class="box box-info">
             <!-- <div class="box-header with-border">
@@ -52,6 +117,25 @@
             <!-- form start -->
             <form class="form-horizontal" enctype="multipart/form-data" novalidate id="formsiswa_bayar">
               <div class="box-body">
+                
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-4 control-label">Tahun Akademik</label>
+
+                  <div class="col-sm-6">
+                    
+                    <select id="tahunak" name="tahunak" class="form-control">
+                        <?php
+                        $sqldidik = "SELECT * FROM t_tahun_akademik ORDER BY tahun_pertama ASC";
+                                    $resdidik = mysql_query( $sqldidik );
+                                    while($hdidik = mysql_fetch_array( $resdidik )){
+                        ?>
+                          <option value="<?php echo $hdidik['kd_tahun_akademik'];?>"><?php echo $hdidik['kd_tahun_akademik'];?></option>
+                        <?php }?>
+                      </select>
+                      <input type="hidden" class="form-control" id="tahunhid" name="tahunhid" readonly="yes" >
+                  </div>
+                </div>
+                
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-4 control-label">Kode</label>
 
@@ -61,137 +145,57 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-4 control-label">NIP</label>
-
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control" id="nip" name="nip" >
-                    <input type="hidden" class="form-control" id="niphid" name="niphid" >
-                  </div>
-                </div>
-                <div class="form-group">
                   <label for="inputEmail3" class="col-sm-4 control-label">Nama</label>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" id="nama" name="nama" >
+                    <input type="text" class="form-control" id="nama" name="nama" readonly="yes">
+                    <input type="hidden" class="form-control" id="namahid" name="namahid" >
                   </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Alamat</label>
+                  <label for="inputEmail3" class="col-sm-4 control-label">Kelas</label>
 
-                    <div class="col-sm-6">
-                      <textarea id="alamat" name="alamat" class="col-sm-12"></textarea>
-                    </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="kelas" name="kelas" readonly="yes">
+                  </div>
                 </div>
-                                            
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Tempat Lahir</label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" id="tmtlahir" name="tmtlahir">
-                    </div>
+                  <label for="inputEmail3" class="col-sm-4 control-label">Jurusan</label>
+
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="jurusan" name="jurusan" readonly="yes">
+                  </div>
                 </div>
-                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Tanggal Lahir</label>
+              <!--
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-4 control-label">Jumlah</label>
 
-                    <div class="input-group date" style="padding-left: 15px;">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-
-                      <input type="text" class="form-control" id="tgllahir" name="tgllahir" style="width: 65%;" value="<?php echo date('Y-m-d');?>">
-                    </div>
-                    <!-- /.input group -->
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="jumlah" name="jumlah" >
+                  </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Jenis Kelamin</label>
-
+                    <label for="inputPassword3" class="col-sm-4 control-label">Wajib</label>
                     <div class="col-sm-6">
-                      <select id="jkel" name="jkel" class="form-control">
-                          <option value="L">Laki-laki</option>
-                          <option value="P">Perempuan</option>
+                      <select id="wajib" name="wajib" class="form-control">                      
+                          <option value="Wajib">Wajib</option>
+                          <option value="Tidak">Tidak</option>
                       </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Pendidikan</label>
-                    <div class="col-sm-6">
-                       <select id="pendidikan" name="pendidikan" class="form-control">
-                        <?php
-                        $sqldidik = "SELECT * FROM t_jenjang_pendidikan ORDER BY kd_jenjang_pendidikan ASC";
-                                    $resdidik = mysql_query( $sqldidik );
-                                    while($hdidik = mysql_fetch_array( $resdidik )){
-                        ?>
-                          <option value="<?php echo $hdidik['kd_jenjang_pendidikan'];?>"><?php echo $hdidik['nama'];?></option>
-                        <?php }?>
-                      </select>
-                    </div>
-                </div> 
-
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Bidang Studi</label>
-                    <div class="col-sm-6">
-                      <select id="bidang" name="bidang" class="form-control">
-                        <?php
-                        $sqldidik = "SELECT * FROM t_bidang_studi ORDER BY nama ASC";
-                                    $resdidik = mysql_query( $sqldidik );
-                                    while($hdidik = mysql_fetch_array( $resdidik )){
-                        ?>
-                          <option value="<?php echo $hdidik['kd_bidang_studi'];?>"><?php echo $hdidik['nama'];?></option>
-                        <?php }?>
-                      </select>
-                    </div>
-                </div>  
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Golongan</label>
-                    <div class="col-sm-6">
-                      <select id="golongan" name="golongan" class="form-control">
-                        <?php
-                        $sqldidik = "SELECT * FROM t_golongan ORDER BY nama ASC";
-                                    $resdidik = mysql_query( $sqldidik );
-                                    while($hdidik = mysql_fetch_array( $resdidik )){
-                        ?>
-                          <option value="<?php echo $hdidik['kd_golongan'];?>"><?php echo $hdidik['nama'];?></option>
-                        <?php }?>
-                      </select>
-                    </div>
-                </div> 
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Jabatan</label>
-                    <div class="col-sm-6">
-                      <select id="jabatan" name="jabatan" class="form-control">
-                        <?php
-                        $sqldidik = "SELECT * FROM t_jabatan ORDER BY kd_jabatan ASC";
-                                    $resdidik = mysql_query( $sqldidik );
-                                    while($hdidik = mysql_fetch_array( $resdidik )){
-                        ?>
-                          <option value="<?php echo $hdidik['kd_jabatan'];?>"><?php echo $hdidik['nama'];?></option>
-                        <?php }?>
-                      </select>
-                    </div>
-                </div>               
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label">Status</label>
-                    <div class="col-sm-6">
-                      <select id="status" name="status" class="form-control">
-                        <?php
-                        $sqldidik = "SELECT * FROM t_siswa_bayar_status ORDER BY kd_siswa_bayar_status ASC";
-                                    $resdidik = mysql_query( $sqldidik );
-                                    while($hdidik = mysql_fetch_array( $resdidik )){
-                        ?>
-                          <option value="<?php echo $hdidik['kd_siswa_bayar_status'];?>"><?php echo $hdidik['nama'];?></option>
-                        <?php }?>
-                      </select>
-                    </div>
-                </div>  
-
+              -->
+               <span id="detail">
+                    
+                </span>
+                
               </div>
+              
               <!-- /.box-body -->
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary" id="saveadd">Simpan</button>
-                <button type="button" class="btn btn-primary" onclick="bataladd()" id="canceladd">Batal</button>
-
-                <button type="button" class="btn btn-primary" onclick="simpanubah()" id="saveedit">Simpan</button>
-              <button type="button" class="btn btn-primary" onclick="batalubah()" id="canceledit">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="batal()" id="canceladd">Batal</button>             
+              <input type="hidden" name="sts" id="sts">
               </div>
               <!-- /.box-footer -->
             </form>
@@ -207,106 +211,93 @@
 <div id="ModalBatal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <script>  
           refresh();
-            function refresh(){
-              $('#saveadd').show();
-              $('#canceladd').show();
-              $('#saveedit').hide();
-              $('#canceledit').hide();
+          
+          $('#formtagihan').hide();
 
+            function tampiltagihan(){
+              var buka = $('#op').html();
+              if (buka=='Open'){
+                $('#op').html('Close');
+                $('#formtagihan').show();
+              }else{
+                $('#op').html('Open');
+                $('#formtagihan').hide();
+              }
+            } 
+            function refresh(){
+              //$('#tahun').val('');   
               $('#kode').val('');   
               $('#kodehid').val('');   
-              $('#nip').val('');
-              $('#niphid').val('');   
               $('#nama').val('');
-              $('#alamat').val(''); 
-              $('#tmtlahir').val('');
-              $('#tgllahir').val('<?php echo date('Y-m-d');?>');
-              $('#jkel').val('');
-              $('#pendidikan').val('');
-              $('#bidang').val('');
-              $('#golongan').val('');
-              $('#jabatan').val('');
-              $('#status').val('');              
-              $('#alamat').val('');
+              $('#kelas').val('');
+              $('#jurusan').val('');
+              $('#jumlah').val('');
+              $('#wajib').val('');
+              $('#tahunhid').val('');
+              $('#sts').val('');
+              $('#detail').hide();
+
+              //document.getElementById("saveadd").disabled = true;        
             }
 
-            function bataladd(){
+            function batal(){
               refresh();
+                          var sts = $('#sts').val();
+                          if (sts=='1') {                           
+                            $('#sts').val('');
+                          }
             }
 
-            function batalubah(){
-              refresh();
+            function ubahsiswa_kewajiban_bayar(a,b,c,d,e){
+                  $('#kode').val(e);   
+                  $('#kodehid').val(e);  
+                  $('#nama').val(b);  
+                  $('#tahun').val(c);
+                  $('#tahunhid').val(c);
+                  $('#jurusan').val(d);
+                  $('#kelas').val(c);
+                  $('#sts').val('1');
+                  $('#detail').show();
+
+                  //fk_kd_siswa_kelas fk_kd_kelas_jenjang_bayar total_bayar status_bayar
+                  $("#detail").load('pages/siswa_bayar/detail_tagihan.php?kdkelas='+e);
+                          //document.getElementById("saveadd").disabled = false;        
             }
-            //<?//kd_siswa_bayar  nip nama  alamat  tempat_lahir  tgl_lahir jenis_kelamin fk_kd_jenjang_pendidikan  fk_kd_bidang_studi  fk_kd_golongan  fk_kd_jabatan fk_kd_siswa_bayar_status?>
 
-            function ubahsiswa_bayar(a,b,c,d,e,f,g,h,i,j,k,l){                
-                          //no_bukti,tr_date,transaction_type,fk_akun,nmakun,ref_akun,nmref,amount
-                  $('#kode').val(a);   
-                  $('#kodehid').val(a);   
-                  $('#nip').val(b);
-                  $('#niphid').val(b);
-                  $('#nama').val(c);
-                  $('#alamat').val(d); 
-                  $('#tmtlahir').val(e);
-                  $('#tgllahir').val(f);
-                  $('#jkel').val(g);
-                  $('#pendidikan').val(h);
-                  $('#bidang').val(i);
-                  $('#golongan').val(j);
-                  $('#jabatan').val(k);
-                  $('#status').val(l);
-                          
-                          $('#saveadd').hide();
-                          $('#canceladd').hide();
-                          $('#saveedit').show();
-                          $('#canceledit').show();
+            function hpstagihan(a,b){
+              var r = confirm("Anda akan menghapus data "+a+"?");
+              if (r == false) {
+                return false;
+              } else {                
+                 var kdkelase=$('#kode').val();
+                 $.ajax({
+                    url: "pages/siswa_bayar/tagihan_del.php?id="+b,
+                    type: "GET",
+                    success: function (ajaxData){
+                      $('#detail').load('pages/siswa_kewajiban_bayar/detail_tagihan.php?kdkelas='+kdkelase);
+                      $("#tablesiswa_kewajiban_bayar").load('pages/siswa_bayar/siswa_kewajiban_bayar_load.php');
+                    }
+                 });
+                 
+               }
             }
-            function simpanubah(){
-                  var kode = $('#kode').val();   
-                  var kodehid = $('#kodehid').val();   
-                  var nip = $('#nip').val();
-                  var niphid = $('#niphid').val();
-                  var nama = $('#nama').val();
-                  var alamat = $('#alamat').val(); 
-                  var tempat_lahir = $('#tmtlahir').val();
-                  var tgl_lahir = $('#tgllahir').val();
-                  var jenis_kelamin  = $('#jkel').val();
-                  var fk_kd_jenjang_pendidikan = $('#pendidikan').val();
-                  var fk_kd_bidang_studi = $('#bidang').val();
-                  var fk_kd_golongan = $('#golongan').val();
-                  var fk_kd_jabatan = $('#jabatan').val();
-                  var fk_kd_siswa_bayar_status = $('#status').val();
 
-                  //alert('pages/siswa_bayar/siswa_bayar_edit_save.php?kode='+kode+'&kodehid='+kodehid+'&nip='+nip+'&niphid='+niphid+'&nama='+nama+'&alamat='+alamat+'&tmtlahir='+tempat_lahir+'&tgllahir='+tgl_lahir+'&jkel='+jenis_kelamin+'&pendidikan='+fk_kd_jenjang_pendidikan+'&bidang='+fk_kd_bidang_studi+'&golongan='+fk_kd_golongan+'&jabatan='+fk_kd_jabatan+'&status='+fk_kd_siswa_bayar_status);
-
-                   $.ajax({
-                                url: 'pages/siswa_bayar/siswa_bayar_edit_save.php?kode='+kode+'&kodehid='+kodehid+'&nip='+nip+'&niphid='+niphid+'&nama='+nama+'&alamat='+alamat+'&tmtlahir='+tempat_lahir+'&tgllahir='+tgl_lahir+'&jkel='+jenis_kelamin+'&pendidikan='+fk_kd_jenjang_pendidikan+'&bidang='+fk_kd_bidang_studi+'&golongan='+fk_kd_golongan+'&jabatan='+fk_kd_jabatan+'&status='+fk_kd_siswa_bayar_status,
-                                type: 'GET',
-                                success: function (data){               
-                                  var hsl=data.trim();      
-                                  //alert(hsl);
-                                  if (hsl=='y'){
-                                    alert('Data Sudah Ada');
-                                    return false();
-                                    exit();
-                                  }
-                                  //alert(hsl);              
-                                  alert('Data Berhasil Disimpan');  
-                                  refresh();
-                                  $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');
-
-                                }
-                        });
-              }
-
+            
             $(document).ready(function (){
                  $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');
 
                     $("#formsiswa_bayar").on('submit', function(e){
                           e.preventDefault();
+                          var sts = $('#sts').val();
+                          if (sts=='') {
+                            var lks='siswa_bayar_add_save.php';
+                          }else{
+                            kdne=$('#kode').val();
+                            var lks='siswa_bayar_edit_save.php?kdkelas='+kdne;
+                          }
                                       $.ajax({
                                                   type: 'POST',
-                                                  url: 'pages/siswa_bayar/siswa_bayar_add_save.php',
+                                                  url: 'pages/siswa_bayar/'+lks,
                                                   data: new FormData(this),
                                                   contentType: false,
                                                   cache: false,
@@ -318,12 +309,13 @@
                                                         //return false;
                                                         if (hsl=='y'){
                                                       alert('Data Sudah ada');
-                                                      return false;
+                                                        return false;
                                                       exit();
                                                     }else{
-                                                      $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');  
+                                                      
                                                       refresh();
                                                             alert('Data Berhasil Disimpan');
+                                                            $("#tablesiswa_kewajiban_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');
                                                   }
                                                       }
                                                 });
@@ -331,4 +323,6 @@
             });
 
 
+
 </script>
+

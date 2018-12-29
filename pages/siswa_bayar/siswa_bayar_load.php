@@ -1,59 +1,50 @@
                       <?php
-                            include_once '../../lib/config.php';                           
+                            include_once '../../lib/config.php'; 
+                            //kd_siswa_kewajiban_bayar  fk_kd_tahun_akademik  fk_kd_jurusan   fk_kd_kelas   fk_kd_ruang   fk_kd_siswa                          
                       ?>
                       <table id="example1" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                           <th>No</th>
-                          <th>NIP</th>
-                          <th>Nama</th>
-                          <th>Pendidikan</th>
-                          <th>Golongan</th>
-                          <th>Jabatan</th>
-                          <th>Bidang Studi</th>
-                          <th>Status</th>                          
+                          <th>Siswa</th>
+                          <th>Kelas</th>
+                          <th>Tahun Akademik</th>   
+                          <th>Jurusan</th>  
                           <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                              <?php
+                              <?php 
+                  //kd_siswa_kewajiban_bayar  fk_kd_siswa_kelas   fk_kd_kelas_jenjang_bayar   status_bayar 
                                     $j=1;
-                                    $sqlcatat = "SELECT A.*,B.nama AS pendidikan, C.nama AS bidang, D.nama AS golongan, E.nama AS jabatan, F.nama AS status FROM t_siswa_bayar A
-                                    LEFT JOIN t_jenjang_pendidikan B ON A.fk_kd_jenjang_pendidikan=B.kd_jenjang_pendidikan
-                                    LEFT JOIN t_bidang_studi C ON A.fk_kd_bidang_studi=C.kd_bidang_studi
-                                    LEFT JOIN t_golongan D ON A.fk_kd_golongan=D.kd_golongan
-                                    LEFT JOIN t_jabatan E ON A.fk_kd_jabatan=E.kd_jabatan
-                                    LEFT JOIN t_siswa_bayar_status F ON A.fk_kd_siswa_bayar_status=F.kd_siswa_bayar_status
-                                    ORDER BY A.kd_siswa_bayar DESC";
+                                    $sqlcatat = "SELECT DISTINCT(A.fk_kd_siswa_kelas),H.fk_kd_siswa_kelas, C.nama AS jurusan, F.nama AS kelas, G.nama AS siswa,B.fk_kd_tahun_akademik FROM t_siswa_kewajiban_bayar A
+                                    LEFT JOIN t_kelas_jenjang_bayar B ON A.fk_kd_kelas_jenjang_bayar=B.kd_kelas_jenjang_bayar
+                                    LEFT JOIN t_jurusan C ON B.fk_kd_jurusan=C.kd_jurusan
+                                    LEFT JOIN t_tahun_akademik D ON B.fk_kd_tahun_akademik=D.kd_tahun_akademik
+                                    LEFT JOIN t_siswa_kelas E ON A.fk_kd_siswa_kelas=E.kd_siswa_kelas
+                                    LEFT JOIN t_kelas F ON E.fk_kd_kelas=F.kd_kelas
+                                    LEFT JOIN t_siswa G ON E.fk_kd_siswa=G.kd_siswa
+                                    LEFT JOIN t_siswa_kewajiban_bayar H ON A.fk_kd_siswa_kelas=H.fk_kd_siswa_kelas
+                                    ORDER BY A.kd_siswa_kewajiban_bayar DESC";
                                     $rescatat = mysql_query( $sqlcatat );
                                     while($catat = mysql_fetch_array( $rescatat )){
                                 ?>
                         <tr class="tr1">
                           <td><?php echo $j++;?></td>
-                          <td ><?php echo $catat['nip'];?></td>
-                          <td ><?php echo $catat['nama'];?></td>
-                          <td ><?php echo $catat['pendidikan'];?></td>
-                          <td ><?php echo $catat['golongan'];?></td>
-                          <td ><?php echo $catat['jabatan'];?></td>
-                          <td ><?php echo $catat['bidang'];?></td>
-                          <td ><?php echo $catat['status'];?></td>                            
+                          <td><?php echo $catat['siswa'];?></td>
+                          <td><?php echo $catat['kelas'];?></td>
+                          <td><?php echo $catat['fk_kd_tahun_akademik'];?></td>
+                          <td><?php echo $catat['jurusan'];?></td>  
                           </td>
-                          <td >
-                                        <button type="button" class="btn btn btn-default btn-circle" id="<?php echo $catat['kd_siswa_bayar']; ?>"  onclick="ubahsiswa_bayar(
-                                         '<?php echo $catat['kd_siswa_bayar'];?>',
-                                         '<?php echo $catat['nip'];?>',
-                                         '<?php echo $catat['nama'];?>',
-                                         '<?php echo $catat['alamat'];?>',
-                                         '<?php echo $catat['tempat_lahir'];?>',
-                                         '<?php echo $catat['tgl_lahir'];?>',
-                                         '<?php echo $catat['jenis_kelamin'];?>',
-                                         '<?php echo $catat['fk_kd_jenjang_pendidikan'];?>',
-                                         '<?php echo $catat['fk_kd_bidang_studi'];?>',
-                                         '<?php echo $catat['fk_kd_golongan'];?>',
-                                         '<?php echo $catat['fk_kd_jabatan'];?>',
-                                         '<?php echo $catat['fk_kd_siswa_bayar_status'];?>'
-                                        );"><span>Ubah</span></button>
-                                         <button type="button" class="btn btn btn-default btn-circle" id="<?php echo $catat['kd_siswa_bayar']; ?>" onclick="open_del(iddelsatuan='<?php echo $catat['kd_siswa_bayar']; ?>');"><span>Hapus</span></button>
+                          <td > <!-- kd_siswa_kewajiban_bayar   fk_kd_tahun_akademik  fk_kd_jurusan   fk_kd_kelas   fk_kd_ruang   fk_kd_siswa -->
+                                        <button type="button" class="btn btn btn-default btn-circle" id="<?php echo $catat['kd_siswa_kewajiban_bayar']; ?>"  onclick="ubahsiswa_kewajiban_bayar(
+                                          '<?php echo $catat['siswa'];?>',
+                                         '<?php echo $catat['siswa'];?>',
+                                         '<?php echo $catat['kelas'];?>',
+                                         '<?php echo $catat['jurusan'];?>',
+                                         '<?php echo $catat['fk_kd_siswa_kelas'];?>'
+                                        );"><span>Proses</span></button>
+                                        
 
                                     </td>
                         </tr>
@@ -64,7 +55,10 @@
 
                       <script>
                         $(function () {
-                          $('#example1').DataTable()
+                          $('#example1').DataTable({
+                            "lengthMenu": [[2,10, 25, 50, -1], [2,10, 25, 50, "All"]]
+                          });
+
                         });
 
                         function open_del(x){

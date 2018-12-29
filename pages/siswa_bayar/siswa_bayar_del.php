@@ -2,7 +2,7 @@
     include_once '../../lib/config.php';
     //include_once '../../lib/fungsi.php';
     $id = $_GET['id'];
-    $sqlemp = "SELECT * FROM t_siswa_bayar WHERE kd_siswa_bayar='$id'";
+    $sqlemp = "SELECT * FROM t_siswa_kewajiban_bayar WHERE kd_siswa_kewajiban_bayar='$id'";
     $resemp = mysql_query( $sqlemp );
     $emp = mysql_fetch_array( $resemp );
 
@@ -11,7 +11,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel" style="text-align: center;padding-right: 0px">Hapus Data Bayar <button type="button" class="close" aria-label="Close" onclick="$('#ModalBatal').modal('hide');"><span>&times;</span></button></h4> 
+                        <h4 class="modal-title" id="myModalLabel" style="text-align: center;padding-right: 0px">Hapus Data Tagihan <button type="button" class="close" aria-label="Close" onclick="$('#ModalBatal').modal('hide');"><span>&times;</span></button></h4> 
                     </div>
                         <div class="panel-body">
 
@@ -50,12 +50,12 @@
                   $(document).ready(function (){
                         $(".save_submit").click(function (e){
                            $.ajax({
-                                url: 'pages/siswa_bayar/siswa_bayar_del_save.php?id=<?php echo $id;?>',
+                                url: 'pages/siswa_kewajiban_bayar/siswa_kewajiban_bayar_del_save.php?id=<?php echo $id;?>',
                                 type: 'GET',
                                 success: function (response){
                                   //alert($)
                                       //alert('panel/panel_del_save.php?id_panel='+id_panel);
-                                     $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');
+                                     $("#tablesiswa_kewajiban_bayar").load('pages/siswa_kewajiban_bayar/siswa_kewajiban_bayar_load.php');
                                      $('.modal-body').css('opacity', '');
                                       alert('Data Berhasil Dihapus');
                                       $('#ModalBatal').modal('hide');
