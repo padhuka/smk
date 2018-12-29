@@ -51,15 +51,15 @@
           </div>
           <!-- /.box -->
         </div>
-
+  <!--
         <div class="col-md-4">
-          <!-- Horizontal Form -->
+         Horizontal Form 
                 <h4>
                   <u>Buat Tagihan</u>&nbsp;(<span onclick="tampiltagihan()" style="color: blue; cursor:pointer;" id="op">Open</span>)
-                  <!--<small>Control panel</small>-->
+                  <small>Control panel</small>
                 </h4>
             
-        </div>
+        </div>-->
 
         <div class="col-md-4" id="formtagihan">
           <!-- Horizontal Form -->
