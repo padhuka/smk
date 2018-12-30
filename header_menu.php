@@ -36,11 +36,12 @@
          <li><a href='?p=pegawai_status'>Pegawai Status</a></li>
          <li><a href='?p=pegawai'>Pegawai</a></li>
          <li><a href='?p=siswa_kelas'>Siswa Kelas</a></li>
-         <li><a href='?p=jenjang_bayar'>Jenjang Pembayaran</a></li>      
-         <li><a href='?p=wajib_bayar'>Tagihan Siswa</a></li>   
-         <li><a href='?p=siswa_bayar'>Pembayaran Siswa</a></li>   
+         <li><a href='?p=jenjang_bayar'>Jenjang Pembayaran</a></li>  
       </ul>
-   </li>
+    </li>
+    <li><a href='?p=wajib_bayar'>Tagihan Siswa</a></li>   
+    <li><a href='?p=siswa_bayar'>Pembayaran Siswa</a></li> 
+   
    <!--
    <li class='has-sub'><a href='#'>Laporan</a>
       <ul>

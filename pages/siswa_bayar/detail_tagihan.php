@@ -80,6 +80,9 @@
                     }
               });
       }
+
+       $('#idbayar').show();
+       $("#tablebayar").load('pages/siswa_bayar/bayar_load.php?kdkelas='+pils);
       
    }
  </script>

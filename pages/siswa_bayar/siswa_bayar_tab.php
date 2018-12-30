@@ -27,12 +27,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tagihan
+        Data Siswa
         <!--<small>Control panel</small>-->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Data Tagihan</li>
+        <li class="active">Data Pembayaran</li>
       </ol>
     </section>
 
@@ -46,6 +46,14 @@
             
               <div class="box-body">
                 <div id="tablesiswa_bayar">
+                </div>
+
+                <div id="idbayar">
+                  <h3>
+                    Data Pembayaran Siswa
+                    <!--<small>Control panel</small>-->
+                  </h3>
+                  <div id="tablebayar"></div>
                 </div>
               </div>             
           </div>
@@ -213,6 +221,7 @@
           refresh();
           
           $('#formtagihan').hide();
+          $('#idbayar').hide();
 
             function tampiltagihan(){
               var buka = $('#op').html();
@@ -261,6 +270,7 @@
 
                   //fk_kd_siswa_kelas fk_kd_kelas_jenjang_bayar total_bayar status_bayar
                   $("#detail").load('pages/siswa_bayar/detail_tagihan.php?kdkelas='+e);
+                 
                           //document.getElementById("saveadd").disabled = false;        
             }
 
