@@ -1,3 +1,5 @@
+<?php
+                            include_once 'lib/config.php';?>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper"  style="margin-left: -0px;">
     <!-- Content Header (Page header) -->
@@ -20,14 +22,17 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
-
-              <p>New Orders</p>
+              <?php
+                  $result = mysql_query("SELECT * FROM t_pegawai");
+                  $num_rows = mysql_num_rows($result);
+                  echo "<h3>".$num_rows."</h3>";
+              ?>
+              <p>Jumlah Pegawai</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?p=pegawai" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -35,14 +40,18 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <?php
+                  $result = mysql_query("SELECT * FROM t_siswa_kelas");
+                  $num_rows = mysql_num_rows($result);
+                  echo "<h3>".$num_rows."</h3>";
+              ?>
 
-              <p>Bounce Rate</p>
+              <p>Jumlah Siswa</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?p=siswa" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -50,14 +59,18 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <?php
+                  $result = mysql_query("SELECT sum(total_bayar) AS total FROM t_siswa_kewajiban_bayar ");
+                  $htagih = mysql_fetch_array($result);
+                  echo "<h3>".rupiah($htagih['total'])."</h3>";
+              ?>
 
-              <p>User Registrations</p>
+              <p>Jumlah Tagihan</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href=".#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?p=wajib_bayar" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -65,14 +78,18 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+               <?php
+                  $result2 = mysql_query("SELECT sum(jml_bayar) AS tunggak FROM t_siswa_bayar ");
+                  $htagih2 = mysql_fetch_array($result2);
+                  echo "<h3>".rupiah($htagih['total']-$htagih2['tunggak'])."</h3>";
+              ?>
 
-              <p>Unique Visitors</p>
+              <p>Jumlah Tunggakan</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="../#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?p=siswa_bayar" class="small-box-footer">Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
