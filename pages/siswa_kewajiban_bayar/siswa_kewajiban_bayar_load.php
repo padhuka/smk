@@ -17,15 +17,14 @@
                               <?php 
                   //kd_siswa_kewajiban_bayar  fk_kd_siswa_kelas   fk_kd_kelas_jenjang_bayar   status_bayar 
                                     $j=1;
-                                    $sqlcatat = "SELECT DISTINCT(A.fk_kd_siswa_kelas),H.fk_kd_siswa_kelas, C.nama AS jurusan, F.nama AS kelas, G.nama AS siswa,B.fk_kd_tahun_akademik FROM t_siswa_kewajiban_bayar A
-                                    LEFT JOIN t_kelas_jenjang_bayar B ON A.fk_kd_kelas_jenjang_bayar=B.kd_kelas_jenjang_bayar
-                                    LEFT JOIN t_jurusan C ON B.fk_kd_jurusan=C.kd_jurusan
-                                    LEFT JOIN t_tahun_akademik D ON B.fk_kd_tahun_akademik=D.kd_tahun_akademik
-                                    LEFT JOIN t_siswa_kelas E ON A.fk_kd_siswa_kelas=E.kd_siswa_kelas
-                                    LEFT JOIN t_kelas F ON E.fk_kd_kelas=F.kd_kelas
-                                    LEFT JOIN t_siswa G ON E.fk_kd_siswa=G.kd_siswa
-                                    LEFT JOIN t_siswa_kewajiban_bayar H ON A.fk_kd_siswa_kelas=H.fk_kd_siswa_kelas
-                                    ORDER BY A.kd_siswa_kewajiban_bayar DESC";
+                                    $sqlcatat = "SELECT A.*,B.fk_kd_tahun_akademik, C.nama AS siswa, D.nama AS jurusan,E.nama AS kelas, G.nama AS tagih FROM t_siswa_kewajiban_bayar A
+                                    LEFT JOIN t_siswa_kelas B ON A.fk_kd_siswa_kelas=B.kd_siswa_kelas
+                                    LEFT JOIN t_siswa C ON B.fk_kd_siswa=C.kd_siswa
+                                    LEFT JOIN t_jurusan D ON B.fk_kd_jurusan=D.kd_jurusan
+                                    LEFT JOIN t_kelas E ON B.fk_kd_kelas=E.kd_kelas
+                                    LEFT JOIN t_kelas_jenjang_bayar F ON A.fk_kd_kelas_jenjang_bayar=F.kd_kelas_jenjang_bayar
+                                    LEFT JOIN t_jenis_pembayaran G ON F.fk_kd_jenis_pembayaran=G.kd_jenis_pembayaran
+                                    GROUP BY A.fk_kd_siswa_kelas";
                                     $rescatat = mysql_query( $sqlcatat );
                                     while($catat = mysql_fetch_array( $rescatat )){
                                 ?>
