@@ -17,14 +17,49 @@
                         </thead>
                         <tbody>
                               <?php
-                                    $j=1;
-                                    $sqlcatat = "SELECT A.*,B.nama AS kelas, C.nama AS siswa,C.nis AS nis, D.kd_tahun_akademik AS tahun, E.nama AS jurusan, F.nama AS ruang FROM t_siswa_kelas A
-                                    LEFT JOIN t_kelas B ON A.fk_kd_kelas=B.kd_kelas
-                                    LEFT JOIN t_siswa C ON A.fk_kd_siswa=C.kd_siswa
-                                    LEFT JOIN t_tahun_akademik D ON A.fk_kd_tahun_akademik=D.kd_tahun_akademik                                    
-                                    LEFT JOIN t_jurusan E ON A.fk_kd_jurusan=E.kd_jurusan
-                                    LEFT JOIN t_ruang F ON A.fk_kd_ruang=F.kd_ruang
-                                    ORDER BY A.kd_siswa_kelas DESC";
+                              $j=1;
+                                    //?angkatan='+angkatan+'&kelas='+kelas+'&jurusan='+jurusan
+                                    if (($_GET['kelas']) && ($_GET['jurusan'])){
+                                          $sqlcatat = "SELECT A.*,B.nama AS kelas, C.nama AS siswa,C.nis AS nis, D.kd_tahun_akademik AS tahun, E.nama AS jurusan, F.nama AS ruang FROM t_siswa_kelas A
+                                          LEFT JOIN t_kelas B ON A.fk_kd_kelas=B.kd_kelas
+                                          LEFT JOIN t_siswa C ON A.fk_kd_siswa=C.kd_siswa
+                                          LEFT JOIN t_tahun_akademik D ON A.fk_kd_tahun_akademik=D.kd_tahun_akademik
+                                          LEFT JOIN t_jurusan E ON A.fk_kd_jurusan=E.kd_jurusan
+                                          LEFT JOIN t_ruang F ON A.fk_kd_ruang=F.kd_ruang
+                                          WHERE A.fk_kd_tahun_akademik='$_GET[angkatan]' AND A.fk_kd_kelas='$_GET[kelas]' AND A.fk_kd_jurusan='$_GET[jurusan]'
+                                          ORDER BY A.kd_siswa_kelas DESC";
+                                    }
+                                    if (($_GET['kelas']) && ($_GET['jurusan']=='')){
+                                          $sqlcatat = "SELECT A.*,B.nama AS kelas, C.nama AS siswa,C.nis AS nis, D.kd_tahun_akademik AS tahun, E.nama AS jurusan, F.nama AS ruang FROM t_siswa_kelas A
+                                          LEFT JOIN t_kelas B ON A.fk_kd_kelas=B.kd_kelas
+                                          LEFT JOIN t_siswa C ON A.fk_kd_siswa=C.kd_siswa
+                                          LEFT JOIN t_tahun_akademik D ON A.fk_kd_tahun_akademik=D.kd_tahun_akademik
+                                          LEFT JOIN t_jurusan E ON A.fk_kd_jurusan=E.kd_jurusan
+                                          LEFT JOIN t_ruang F ON A.fk_kd_ruang=F.kd_ruang
+                                          WHERE A.fk_kd_tahun_akademik='$_GET[angkatan]' AND A.fk_kd_kelas='$_GET[kelas]'
+                                          ORDER BY A.kd_siswa_kelas DESC";
+                                    }
+                                    if (($_GET['kelas']=='') && ($_GET['jurusan'])){
+                                          $sqlcatat = "SELECT A.*,B.nama AS kelas, C.nama AS siswa,C.nis AS nis, D.kd_tahun_akademik AS tahun, E.nama AS jurusan, F.nama AS ruang FROM t_siswa_kelas A
+                                          LEFT JOIN t_kelas B ON A.fk_kd_kelas=B.kd_kelas
+                                          LEFT JOIN t_siswa C ON A.fk_kd_siswa=C.kd_siswa
+                                          LEFT JOIN t_tahun_akademik D ON A.fk_kd_tahun_akademik=D.kd_tahun_akademik
+                                          LEFT JOIN t_jurusan E ON A.fk_kd_jurusan=E.kd_jurusan
+                                          LEFT JOIN t_ruang F ON A.fk_kd_ruang=F.kd_ruang
+                                          WHERE A.fk_kd_tahun_akademik='$_GET[angkatan]' AND A.fk_kd_jurusan='$_GET[jurusan]'
+                                          ORDER BY A.kd_siswa_kelas DESC";
+                                    }
+                                    if (($_GET['kelas']=='') && ($_GET['jurusan']=='')){
+                                          $sqlcatat = "SELECT A.*,B.nama AS kelas, C.nama AS siswa,C.nis AS nis, D.kd_tahun_akademik AS tahun, E.nama AS jurusan, F.nama AS ruang FROM t_siswa_kelas A
+                                          LEFT JOIN t_kelas B ON A.fk_kd_kelas=B.kd_kelas
+                                          LEFT JOIN t_siswa C ON A.fk_kd_siswa=C.kd_siswa
+                                          LEFT JOIN t_tahun_akademik D ON A.fk_kd_tahun_akademik=D.kd_tahun_akademik
+                                          LEFT JOIN t_jurusan E ON A.fk_kd_jurusan=E.kd_jurusan
+                                          LEFT JOIN t_ruang F ON A.fk_kd_ruang=F.kd_ruang
+                                          WHERE A.fk_kd_tahun_akademik='$_GET[angkatan]'
+                                          ORDER BY A.kd_siswa_kelas DESC";
+                                    }
+                                    //echo $sqlcatat;
                                     $rescatat = mysql_query( $sqlcatat );
                                     while($catat = mysql_fetch_array( $rescatat )){
                                 ?>
