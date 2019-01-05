@@ -79,7 +79,12 @@
             <form class="form-horizontal" enctype="multipart/form-data" novalidate id="formsiswa_kelas">
               <div class="box-body">
                 
-                
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-4 control-label"></label>
+                  <div class="col-sm-6">
+                      <label class="control-label" style="cursor: pointer; color: red; border-color: blue; font-size: 18px;" onclick="pilihsiswas()">Pilih Siswa</label>
+                  </div>
+                </div>
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-4 control-label">NIS</label>
 
@@ -205,6 +210,11 @@
               $('#jurusan').val('');
               $('#ruang').val('');
               $('#tahunhid').val('');
+              $('#tablesiswa').hide();
+            }
+
+            function pilihsiswas(){
+              $('#tablesiswa').show();
             }
 
             function bataladd(){
@@ -221,6 +231,7 @@
                   $('#nis').val(b);
                   $('#nishid').val(b);
                   $('#nama').val(d);
+                  $('#tablesiswa').hide();
             }
             /*
              '<?php //echo $catat['siswa'];?>',
@@ -282,8 +293,8 @@
                         });
               }
 
-            function pilang(){
-              var angkatan = $('#pilihangk').val();
+            function pilangk(){
+                var angkatan = $('#pilihangk').val();
                  var kelas = $('#pilihkelas').val();
                  var jurusan = $('#pilihjurusan').val();
                  $("#tablesiswa_kelas").load('pages/siswa_kelas/siswa_kelas_load.php?angkatan='+angkatan+'&kelas='+kelas+'&jurusan='+jurusan);
