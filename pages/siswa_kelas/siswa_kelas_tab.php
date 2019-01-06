@@ -338,7 +338,7 @@
                                                       return false;
                                                       exit();
                                                     }else{
-                                                      $("#tablesiswa_kelas").load('pages/siswa_kelas/siswa_kelas_load.php');  
+                                                      $("#tablesiswa_kelas").load('pages/siswa_kelas/siswa_kelas_load.php?angkatan='+angkatan+'&kelas='+kelas+'&jurusan='+jurusan); 
                                                       refresh();
                                                             alert('Data Berhasil Disimpan');
                                                   }

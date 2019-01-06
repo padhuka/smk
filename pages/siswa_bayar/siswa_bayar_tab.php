@@ -29,6 +29,26 @@
       <h1>
         Data Siswa
         <!--<small>Control panel</small>-->
+        &nbsp;&nbsp;<span style="font-size: 15px">Tahun Akademik:</span>
+        <select id="pilihangk" style="font-size: 14px;" onchange="pilangk()">
+          <?php $qangk=mysql_query("SELECT * FROM t_tahun_akademik"); 
+            while ($hank=mysql_fetch_array($qangk)) {?>
+            <option value="<?php echo $hank['kd_tahun_akademik'];?>"  style="font-size: 14px;"><?php echo $hank['kd_tahun_akademik'];?></option> <?php }?>         
+        </select> 
+        &nbsp;&nbsp;<span style="font-size: 15px">Kelas:</span>
+        <select id="pilihkelas" style="font-size: 14px;" onchange="pilkelas()">
+          <?php $qangk=mysql_query("SELECT * FROM t_kelas"); 
+            while ($hank=mysql_fetch_array($qangk)) {?>
+            <option value="<?php echo $hank['kd_kelas'];?>"  style="font-size: 14px;"><?php echo $hank['nama'];?></option><?php }?>         
+            <option value=""  style="font-size: 14px;">--Semua Kelas--</option>
+        </select>
+        &nbsp;&nbsp;<span style="font-size: 15px">Jurusan:</span>
+        <select id="pilihjurusan" style="font-size: 14px;" onchange="piljur()">
+          <?php $qangk=mysql_query("SELECT * FROM t_jurusan"); 
+            while ($hank=mysql_fetch_array($qangk)) {?>
+            <option value="<?php echo $hank['kd_jurusan'];?>"  style="font-size: 14px;"><?php echo $hank['nama'];?></option> <?php }?>    
+            <option value=""  style="font-size: 14px;">--Semua Jurusan--</option>     
+        </select>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -52,6 +72,7 @@
                   <h3>
                     Data Pembayaran Siswa
                     <!--<small>Control panel</small>-->
+                    
                   </h3>
                   <div id="tablebayar"></div>
                 </div>
@@ -292,9 +313,31 @@
                }
             }
 
+            function pilangk(){
+                var angkatan = $('#pilihangk').val();
+                 var kelas = $('#pilihkelas').val();
+                 var jurusan = $('#pilihjurusan').val();
+                 $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php?angkatan='+angkatan+'&kelas='+kelas+'&jurusan='+jurusan);
+            }
+            function pilkelas(){
+              var angkatan = $('#pilihangk').val();
+                 var kelas = $('#pilihkelas').val();
+                 var jurusan = $('#pilihjurusan').val();
+                 $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php?angkatan='+angkatan+'&kelas='+kelas+'&jurusan='+jurusan);
+
+            }
+            function piljur(){
+                var angkatan = $('#pilihangk').val();
+                 var kelas = $('#pilihkelas').val();
+                 var jurusan = $('#pilihjurusan').val();
+                 $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php?angkatan='+angkatan+'&kelas='+kelas+'&jurusan='+jurusan);
+            }
             
             $(document).ready(function (){
-                 $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php');
+              var angkatan = $('#pilihangk').val();
+                 var kelas = $('#pilihkelas').val();
+                 var jurusan = $('#pilihjurusan').val();
+                 $("#tablesiswa_bayar").load('pages/siswa_bayar/siswa_bayar_load.php?angkatan='+angkatan+'&kelas='+kelas+'&jurusan='+jurusan);
 
                     $("#formsiswa_bayar").on('submit', function(e){                         
                           e.preventDefault();

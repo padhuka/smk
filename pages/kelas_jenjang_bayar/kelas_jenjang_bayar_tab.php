@@ -280,7 +280,7 @@
                                                       return false;
                                                       exit();
                                                     }else{
-                                                      $("#tablekelas_jenjang_bayar").load('pages/kelas_jenjang_bayar/kelas_jenjang_bayar_load.php');  
+                                                      $("#tablekelas_jenjang_bayar").load('pages/kelas_jenjang_bayar/kelas_jenjang_bayar_load.php?angkatan='+angkatan+'&kelas='+kelas+'&jurusan='+jurusan); 
                                                       refresh();
                                                             alert('Data Berhasil Disimpan');
                                                   }
